@@ -26,3 +26,5 @@ lines(x,mins_f,col="navy")
 lines(x,maxs_f,col="firebrick4")
 lines(x,mo_f,col="forestgreen")
 ```
+
+![](https://github.com/tystan/clsa/blob/master/example.png)
