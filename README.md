@@ -8,7 +8,11 @@ library(devtools) # see http://cran.r-project.org/web/packages/devtools/README.h
 devtools::install_github('tystan/clsa')
 ### see help file to run example
 ?clsa_min
-### Example usage:
+```
+
+
+## Example usage
+```R
 set.seed(12345)
 x<-sort(runif(100))
 f<-rchisq(100,10)
