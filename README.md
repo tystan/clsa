@@ -5,5 +5,5 @@ Fast min/max sliding window algorithm on unevenly spaced data
 To install in R, run:
 ```R
 library(devtools) # see http://cran.r-project.org/web/packages/devtools/README.html
-devtools::install_github('clsa','tystan')
+devtools::install_github('tystan/clsa')
 ```
