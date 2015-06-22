@@ -14,13 +14,13 @@ library(clsa)
 ## Example usage
 ```R
 set.seed(12345)
-x<-sort(runif(100))
-f<-rchisq(100,10)
-this_win<-0.1
+x <- sort(runif(100))
+f <- rchisq(100,10)
+this_win <- 0.1
 mins_f <- clsa_min(x,f,this_win)
 maxs_f <- clsa_max(x,f,this_win)
 # this is a morphological opening
-mo_f<-clsa_max(x,mins_f,this_win)
+mo_f <- clsa_max(x,mins_f,this_win)
 plot(x,f,type="l",bty="n")
 lines(x,mins_f,col="navy")
 lines(x,maxs_f,col="firebrick4")
