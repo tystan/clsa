@@ -1,7 +1,7 @@
 Package: clsa
 Title: Continuous Line Segment Algorithm (CLSA) Implementation
 Version: 0.1.0
-Authors@R: person("Ty","Stanford",email="tyman.stanford@adelaide.edu.au",role=c("aut","cre")
+Authors@R: person("Ty","Stanford",email="tyman.stanford@adelaide.edu.au",role=c("aut","cre"))
 Description: Fast min/max sliding window algorithm on unevenly spaced data
 Depends: R (>= 3.1.0)
 License: MIT
