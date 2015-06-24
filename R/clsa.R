@@ -73,7 +73,7 @@
 		# make span(X) == m*k artificially
 		if(!((x[1]+mk) == x[nx])){
 			x<-c(x,x[1]+mk)
-			f<-c(f,max(f)+1)
+			f<-c(f,1e+100) # +Inf not allowed for c-code, nasty workaround
 			isAppend<-TRUE
 			nx<-nx+1
 			x.span<-x[nx]-x[1]
