@@ -17,13 +17,16 @@ A vector of the same length as \code{f}, with the sliding window minimums in eac
 \author{Ty Stanford}
 \examples{
 set.seed(12345)
-x<-sort(runif(100))
-f<-rchisq(100,10)
-this_win<-0.1
+n <- 100 # number of points
+x <- sort(runif(n)) # location of points
+f <- rchisq(n,10) # signal at points
+this_win <- 0.1 # the size of the window passed over the points
+# rolling/moving minimum (erosion in morphology)
 mins_f <- clsa_min(x,f,this_win)
+# rolling/moving maximum (dilation in morphology)
 maxs_f <- clsa_max(x,f,this_win)
 # this is a morphological opening
-mo_f<-clsa_max(x,mins_f,this_win)
+mo_f <- clsa_max(x,mins_f,this_win)
 plot(x,f,type="l",bty="n")
 lines(x,mins_f,col="navy")
 lines(x,maxs_f,col="firebrick4")
