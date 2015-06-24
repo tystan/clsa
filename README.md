@@ -14,7 +14,7 @@ library(clsa)
 ## Example usage
 ```R
 set.seed(12345)
-n<-100 # 100 points
+n <- 100 # number of points
 x <- sort(runif(n)) # location of points
 f <- rchisq(n,10) # signal at points
 this_win <- 0.1 # the size of the window passed over the points
