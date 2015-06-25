@@ -49,7 +49,14 @@
 	names(i_l_r)<-c("left","right")
 	return(i_l_r)
 }
-
+.rolling_min_naiv<-function(x,f,k)
+{
+	n<-length(x)
+	r_min<-numeric(n)
+	r_min<-.C("rolling_min_naiv_"
+		, x, f, as.integer(n), as.numeric(k/2), r_min)[[5]]
+	return(r_min)
+}
 
 ########################################################################################
 ###################################### workhorse ######################################
@@ -112,6 +119,8 @@
 clsa_min<-function(x,f,window) return(.erode_cts(x,f,window))
 clsa_max<-function(x,f,window) return(-.erode_cts(x,-f,window))
 
+naiv_min<-function(x,f,window) return(.rolling_min_naiv(x,f,window))
+naiv_max<-function(x,f,window) return(-.rolling_min_naiv(x,-f,window))
 
 
 
