@@ -74,6 +74,21 @@ void create_index_(double *x, int *n, double *k0, int *i_l, int *i_r)
 	}
 }
 
+// theta is 2 longer than g,h
+void case_1_2_3_(int *theta, int *i_l, int *i_r, double *g, double *h, int *n, double *r_min)
+{
+	int n_=(*n);
+	
+	for (int i=0; i<n_; i++){
+		if ( theta[i_l[i]+1]==theta[i_r[i]+2] ) { 		// theta need +1 in index
+			r_min[i]=g[i_r[i]]; 						// case #1
+		} else if ( theta[i_l[i]]==theta[i_r[i]+1] ) { 	// theta need +1 in index
+			r_min[i]=h[i_l[i]]; 						// case #2
+		} else {  
+			r_min[i]=min_d(g[i_r[i]],h[i_l[i]]); 		// case #3
+		}
+	}
+}
 
 
 void rolling_min_naiv_(double *x, double *f, int *n, double *k0, double *r_min)
