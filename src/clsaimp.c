@@ -2,11 +2,18 @@
 #include <Rmath.h>
 #include <stdlib.h>
 
-void create_theta_(double *x, double *k, int *n, int *m, int *theta)
+
+double min_d(double x1, double x2){
+	return (x1<x2 ? x1 : x2);
+}
+
+void create_theta_(int *theta, double *x, int *n, double *k, int *m)
 {
-	double k_=(*k);
+
 	int n_=(*n);
+	double k_=(*k);
 	int m_=(*m);
+
 	int i=1;
 	double x_0=x[0];
 	int curr_m=1;
@@ -22,51 +29,24 @@ void create_theta_(double *x, double *k, int *n, int *m, int *theta)
 			curr_m++;
 		}
 	}
+
 }
 
-double min_d(double x1, double x2){
-	return (x1<x2 ? x1 : x2);
-}
 
-void create_g_(int *theta, double *f, int *n, double *g)
+void create_index_(int *i_l, int *i_r, double *x, int *n, double k0)
 {
 	int n_=(*n);
-	int i;
-	
-	for (i=0; i<n_; i++){
-		if(theta[i]<theta[i+1]) g[i]=f[i];
-		else g[i]=min_d(f[i],g[i-1]);
-	}
-}
-
-
-void create_h_(int *theta, double *f, int *n, double *h)
-{
-	int n_=(*n);
-	int i;
-	
-	for (i=n_; i>0; i--){
-		if(theta[i]<theta[i+1]) h[i-1]=f[i-1];
-		else h[i-1]=min_d(f[i-1],h[i]);
-	}
-}
-
-
-void create_index_(double *x, int *n, double *k0, int *i_l, int *i_r)
-{
 	int l_pos = 0;
 	int r_pos = 0;
 	int i;
-	int n_=(*n);
-	double k0_=(*k0);
 	double this_x;
 
 	for (i=0; i<n_; i++){
 		this_x=x[i];
-		while (x[l_pos] < (this_x - k0_)) {
+		while (x[l_pos] < (this_x - k0)) {
 			l_pos++;
 		}
-		while (((this_x + k0_) >= x[r_pos]) & (r_pos < n_)) {
+		while (((this_x + k0) >= x[r_pos]) & (r_pos < n_)) {
 			r_pos++;
 		}
 		i_l[i]=l_pos;
@@ -74,8 +54,30 @@ void create_index_(double *x, int *n, double *k0, int *i_l, int *i_r)
 	}
 }
 
+void create_g_(double *g, int *theta, double *f, int *n)
+{
+	int n_=(*n);
+	
+	for (int i=0; i<n_; i++){
+		if(theta[i]<theta[i+1]) g[i]=f[i];
+		else g[i]=min_d(f[i],g[i-1]);
+	}
+}
+
+
+void create_h_(double *h, int *theta, double *f, int *n)
+{
+	int n_=(*n);
+	
+	for (int i=n_; i>0; i--){
+		if(theta[i]<theta[i+1]) h[i-1]=f[i-1];
+		else h[i-1]=min_d(f[i-1],h[i]);
+	}
+}
+
+
 // theta is 2 longer than g,h
-void case_1_2_3_(int *theta, int *i_l, int *i_r, double *g, double *h, int *n, double *r_min)
+void case_1_2_3_(double *r_min, int *theta, int *i_l, int *i_r, double *g, double *h, int *n)
 {
 	int n_=(*n);
 	
@@ -88,44 +90,33 @@ void case_1_2_3_(int *theta, int *i_l, int *i_r, double *g, double *h, int *n, d
 			r_min[i]=min_d(g[i_r[i]],h[i_l[i]]); 		// case #3
 		}
 	}
+	
 }
 
-
-void rolling_min_naiv_(double *x, double *f, int *n, double *k0, double *r_min)
+// ::: fun C facts :::
+// *xxx is the value stored at the location xxx in memory
+// &xxx is the address of a variable xxx
+// *(&xxx)==xxx i.e. the LHS is the value of (the address of xxx) == xxx
+// also xxx[5] is shorthand for *(xxx + 5)
+// i.e. the value in address xxx plus five (the sixth elent of the array starting at xxx)
+void get_rmin_(double *r_min, double *x, double *f, int *n, double *k, int *m)
 {
-	int l_pos = 0;
-	int r_pos = 0;
-	int i;
-	int n_=(*n);
-	double k0_=(*k0);
-	double this_x;
 
-	for (i=0; i<n_; i++){
-		this_x=x[i];
-		while (x[l_pos] < (this_x - k0_)) {
-			l_pos++;
-		}
-		while (((this_x + k0_) >= x[r_pos]) & (r_pos < n_)) {
-			r_pos++;
-		}
-		if ( (r_pos-1) == l_pos) {
-			r_min[i]=f[l_pos];
-		}
-		else if ( (r_pos - 1 - l_pos) == 1) {
-			r_min[i]=min_d(f[l_pos],f[r_pos-1]);
-		}
-		else {
-			r_min[i]=f[l_pos];
-			for (int j=l_pos+1; j<r_pos; j++) r_min[i]=min_d(r_min[i],f[j]);
-		}
-	}
+	double k0=(*k)/2;
+
+	int theta[*n+2];
+	int i_l[*n];
+	int i_r[*n];
+	double g[*n];
+	double h[*n];
+	
+	create_theta_(theta, x, n, k, m);
+	create_index_(i_l, i_r, x, n, k0);
+	create_g_(g, theta, f, n);
+	create_h_(h, theta, f, n);
+	case_1_2_3_(r_min, theta, i_l, i_r, g, h, n);
+	
 }
-
-
-
-
-
-
 
 
 
