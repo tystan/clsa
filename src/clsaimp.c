@@ -7,7 +7,7 @@ double min_d(double x1, double x2);
 void create_theta_(int *theta, double *x, int *n, double *k, int *m);
 void create_index_(int *i_l, int *i_r, double *x, int *n, double k0);
 void create_g_(double *g, int *theta, double *f, int *n);
-void create_h_(double *h, int *theta, double *f, int *n)
+void create_h_(double *h, int *theta, double *f, int *n);
 void case_1_2_3_(double *r_min, int *theta, int *i_l, int *i_r, double *g, double *h, int *n);
 
 
