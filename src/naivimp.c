@@ -1,10 +1,7 @@
 #include <R.h> 
 #include <Rmath.h>
 #include <stdlib.h>
-
-double min_d(double x1, double x2){
-	return (x1<x2 ? x1 : x2);
-}
+#include "common_func.h"
 
 void rolling_min_naiv_(double *x, double *f, int *n, double *k0, double *r_min)
 {

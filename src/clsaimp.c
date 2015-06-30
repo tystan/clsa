@@ -1,11 +1,8 @@
 #include <R.h> 
 #include <Rmath.h>
 #include <stdlib.h>
+#include "common_func.h"
 
-
-double min_d(double x1, double x2){
-	return (x1<x2 ? x1 : x2);
-}
 
 void create_theta_(int *theta, double *x, int *n, double *k, int *m)
 {
