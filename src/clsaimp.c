@@ -1,8 +1,44 @@
 #include <R.h> 
 #include <Rmath.h>
 #include <stdlib.h>
-#include "common_func.h"
 
+// function prototypes
+double min_d(double x1, double x2);
+void create_theta_(int *theta, double *x, int *n, double *k, int *m);
+void create_index_(int *i_l, int *i_r, double *x, int *n, double k0);
+void create_g_(double *g, int *theta, double *f, int *n);
+void create_h_(double *h, int *theta, double *f, int *n)
+void case_1_2_3_(double *r_min, int *theta, int *i_l, int *i_r, double *g, double *h, int *n);
+
+
+// ::: fun C facts :::
+// *xxx is the value stored at the location xxx in memory
+// &xxx is the address of a variable xxx
+// *(&xxx)==xxx i.e. the LHS is the value of (the address of xxx) == xxx
+// also xxx[5] is shorthand for *(xxx + 5)
+// i.e. the value in address xxx plus five (the sixth elent of the array starting at xxx)
+void get_rmin_(double *r_min, double *x, double *f, int *n, double *k, int *m)
+{
+
+	double k0=(*k)/2;
+
+	int theta[*n+2];
+	int i_l[*n];
+	int i_r[*n];
+	double g[*n];
+	double h[*n];
+	
+	create_theta_(theta, x, n, k, m);
+	create_index_(i_l, i_r, x, n, k0);
+	create_g_(g, theta, f, n);
+	create_h_(h, theta, f, n);
+	case_1_2_3_(r_min, theta, i_l, i_r, g, h, n);
+	
+}
+
+/********* import common functions ********/
+#include "common_func.h"
+/******************************************/
 
 void create_theta_(int *theta, double *x, int *n, double *k, int *m)
 {
@@ -89,32 +125,4 @@ void case_1_2_3_(double *r_min, int *theta, int *i_l, int *i_r, double *g, doubl
 	}
 	
 }
-
-// ::: fun C facts :::
-// *xxx is the value stored at the location xxx in memory
-// &xxx is the address of a variable xxx
-// *(&xxx)==xxx i.e. the LHS is the value of (the address of xxx) == xxx
-// also xxx[5] is shorthand for *(xxx + 5)
-// i.e. the value in address xxx plus five (the sixth elent of the array starting at xxx)
-void get_rmin_(double *r_min, double *x, double *f, int *n, double *k, int *m)
-{
-
-	double k0=(*k)/2;
-
-	int theta[*n+2];
-	int i_l[*n];
-	int i_r[*n];
-	double g[*n];
-	double h[*n];
-	
-	create_theta_(theta, x, n, k, m);
-	create_index_(i_l, i_r, x, n, k0);
-	create_g_(g, theta, f, n);
-	create_h_(h, theta, f, n);
-	case_1_2_3_(r_min, theta, i_l, i_r, g, h, n);
-	
-}
-
-
-
 

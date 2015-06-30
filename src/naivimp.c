@@ -1,7 +1,9 @@
 #include <R.h> 
 #include <Rmath.h>
 #include <stdlib.h>
-#include "common_func.h"
+
+// function prototypes
+double min_d(double x1, double x2);
 
 void rolling_min_naiv_(double *x, double *f, int *n, double *k0, double *r_min)
 {
