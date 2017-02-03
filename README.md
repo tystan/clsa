@@ -2,7 +2,7 @@
 Fast min/max sliding window algorithm on unevenly spaced data. Impemented for use in `R` (`R` wrapper functions call `C` code for speed).
 
 Details are available in the paper:
-[Informed baseline subtraction of proteomic mass spectrometry data aided by a novel sliding window algorithm](https://arxiv.org/abs/1603.07082/). Specifically, Figure 9 contains the details of the CLSA algorithm.
+[Informed baseline subtraction of proteomic mass spectrometry data aided by a novel sliding window algorithm](https://proteomesci.biomedcentral.com/track/pdf/10.1186/s12953-016-0107-8/). Specifically, Figure 7 contains the details of the CLSA algorithm.
 
 # Installation
 To install and load in R, run:
